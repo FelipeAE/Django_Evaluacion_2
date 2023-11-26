@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import Socio
-from .forms import SocioForm
+from Socios_APP.models import Socio
+from Socios_APP.forms import SocioForm
 
 
 def index(request):
@@ -13,29 +13,40 @@ def index(request):
 
 def lista_socios(request):
     socios = Socio.objects.all()
-    return render(request, 'lista_socios.html', {'socios': socios})
+    data = {
+        'socio': socios
+    }
+    return render(request, 'lista_socios.html', data)
 
 def agregar_socio(request):
+    form = SocioForm()
+    
     if request.method == "POST":
         form = SocioForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('lista_socios')
-    else:
-        form = SocioForm()
-    return render(request, 'agregar_socio.html', {'form': form})
+            return redirect('/listar')
+    
+    data = {
+        'form': form
+    }
+    return render(request, 'agregar_socio.html', data)
 
 def editar_socio(request, pk):
     socio = Socio.objects.get(id=pk)
+    form = SocioForm(instance=socio)
     if request.method == "POST":
         form = SocioForm(request.POST, instance=socio)
         if form.is_valid():
             form.save()
-            return redirect('lista_socios')
-    else:
-        form = SocioForm(instance=socio)
-    return render(request, 'editar_socio.html', {'form': form})
+            return redirect('/listar')
+    
+    data = {
+        'form': form
+    }
+    return render(request, 'editar_socio.html', data)
 
 def eliminar_socio(request, pk):
-    Socio.objects.get(id=pk).delete()
-    return redirect('lista_socios')
+    socio = Socio.objects.get(id=pk)
+    socio.delete()
+    return redirect('/listar')
