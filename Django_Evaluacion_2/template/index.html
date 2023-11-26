@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="card">
+    <div class="card-header">
+      Información del Alumno
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Detalles del Alumno</h5>
+      <p class="card-text"><strong>Nombre:</strong> {{nombre}}</p>
+      <p class="card-text"><strong>RUT:</strong> {{rut}}</p>
+      <p class="card-text"><strong>Sección:</strong> {{seccion}}</p>
+    </div>
+  </div>
+    <a href="/listar" class="btn btn-primary">Socios</a>
+{% endblock %}
