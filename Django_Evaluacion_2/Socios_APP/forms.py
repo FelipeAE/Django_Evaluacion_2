@@ -45,11 +45,11 @@ class SocioForm(forms.ModelForm):
     #         if fecha_incorporacion < fecha_nacimiento:
     #             raise forms.ValidationError('La fecha de incorporación debe ser mayor a la fecha de nacimiento')
     
-    # def clean_nombre(self):
-    #     nombre = self.cleaned_data['nombre']
-    #     if not nombre.isalpha():
-    #         raise forms.ValidationError('El nombre solo puede contener letras')
-    #     return nombre
+    def clean_nombre(self):
+        nombre = self.cleaned_data['nombre']
+        if not nombre.isalpha():
+            raise forms.ValidationError('El nombre solo puede contener letras')
+        return nombre
     
     def clean_telefono(self):
         telefono = self.cleaned_data['telefono']
