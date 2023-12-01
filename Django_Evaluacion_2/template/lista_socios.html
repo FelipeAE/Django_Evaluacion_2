@@ -29,7 +29,15 @@
         <td>{{ s.estado }}</td>
         <td>{{ s.observacion }}</td>
         <td><a href="/editar/{{s.id}}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Editar</a></td>
-        <td><a href="/eliminar/{{s.id}}" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Eliminar</a></td>
+        <td>
+          <form action="/eliminar/{{s.id}}" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este socio?');">
+            {% csrf_token %}
+            <input type="hidden" name="s_id" value="{{ s.id }}">
+            <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Eliminar</button>
+        </form>
+        
+        </td>
+        <!-- <td><a href="/eliminar/{{s.id}}" class="btn btn-danger btn-sm" onclick="return confirm('¿Estas seguro de que quieres eliminar este socio?')"><i class="bi bi-trash"></i> Eliminar</a></td> -->
       </tr>
       {% endfor %}
     </tbody>

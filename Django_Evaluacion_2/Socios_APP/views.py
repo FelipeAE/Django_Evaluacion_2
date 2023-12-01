@@ -47,6 +47,10 @@ def editar_socio(request, pk):
     return render(request, 'editar_socio.html', data)
 
 def eliminar_socio(request, pk):
-    socio = Socio.objects.get(id=pk)
-    socio.delete()
-    return redirect('/listar')
+    if request.method == "POST":
+        socio = Socio.objects.get(id=pk)
+        socio.delete()
+        return redirect('/listar')
+    
+    else:
+        return redirect('/listar')
