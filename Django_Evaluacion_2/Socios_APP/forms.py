@@ -47,9 +47,10 @@ class SocioForm(forms.ModelForm):
     
     def clean_nombre(self):
         nombre = self.cleaned_data['nombre']
-        if not nombre.isalpha():
-            raise forms.ValidationError('El nombre solo puede contener letras')
+        if not all(x.isalpha() or x.isspace() for x in nombre):
+            raise forms.ValidationError('El nombre solo puede contener letras y espacios')
         return nombre
+
     
     def clean_telefono(self):
         telefono = self.cleaned_data['telefono']
